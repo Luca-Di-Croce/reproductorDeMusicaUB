@@ -67,8 +67,6 @@ public class LlistaFitxers implements InFileList {
         return false;
     }
 
-    //public String toString(){}
-
     public String toString(){ // ADDED
         StringBuffer temp = new StringBuffer("");
         for (int y=0; y<ficheros.size(); y++)
