@@ -22,9 +22,6 @@ public class FitxerMultimedia extends File implements InFile {
     }
 
 
-    //public String toString(){}
-
-
     //Object obj hace referenci al tipo generico de objetos lo usamos porque el usuario puede pasar cualquier cosa
     public boolean equals(Object obj) {
         //Sea cualquiera el objeto si esta vacio(solo incializado) devolver false
@@ -43,8 +40,8 @@ public class FitxerMultimedia extends File implements InFile {
 
     @Override
     public Date getUltimaModificacio() {
-        Calendar cal= Calendar.getInstance();
-        Date fecha=new Date(cal.getTimeInMillis());
+        Calendar cal = Calendar.getInstance();
+        Date fecha = new Date(cal.getTimeInMillis());
         return fecha;
     }
 
@@ -66,7 +63,10 @@ public class FitxerMultimedia extends File implements InFile {
 
     @Override
     public void setAutor(String s) {
-        this.author=s;
+        this.author = s;
 
     }
+    
+    public String toString(){
+    return this.getCamiAbsolut();}
 }
