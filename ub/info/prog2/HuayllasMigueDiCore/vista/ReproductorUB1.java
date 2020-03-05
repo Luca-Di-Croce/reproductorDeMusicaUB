@@ -2,7 +2,6 @@ package ub.info.prog2.HuayllasMigueDiCore.vista;
 
 import ub.info.prog2.HuayllasMiguelDiCore.model.LlistaFitxers;
 import ub.info.prog2.utils.Menu;
-
 import java.io.*;
 import java.util.Scanner;
 
@@ -55,28 +54,33 @@ public class ReproductorUB1 {
             //Hacemos las acciones necesarias
             switch (opcion) {
                 case AGREGAR_FICHERO:
-                    System.out.println(desOpcionesMenu[0]);
+                    System.out.println("\n" + desOpcionesMenu[0]);
                     if (!lista.isFull()) {
-                        System.out.println("Cual es el path del file que quieres añadir?");
+                        System.out.println("\nQuin es el path del file que vols afegir?\n");
                         File add = new File(sc.nextLine());
                         lista.addFitxer(add);
                     } else
-                        System.out.println("List is full. You must delete some files before you can add some");
+                        System.out.println("\nList is full. You must delete some files before you can add some\n");
                     break;
                 case ELIMINAR_FICHERO:
-                    System.out.println(desOpcionesMenu[1]);
-                    System.out.println("Cual es el path del file que quieres eliminar?");
-                    File del = new File(sc.nextLine());
-                    lista.removeFitxer(del);
+                    System.out.println("\n" + desOpcionesMenu[1]);
+                    if(lista.getSize()==0)
+                        System.out.println("\nNo hi ha cap fitxer per a eliminar\n");
+                    else{
+                    System.out.println("\nQuin es el path del file que vols eliminar?\n");
+                    String path = sc.nextLine();
+                    File file = new File(path);
+                    lista.removeFitxer(file);
+                    }
                     break;
                 case MOSTRAR_LISTA:
-                    System.out.println(desOpcionesMenu[2]);
+                    System.out.println("\n" + desOpcionesMenu[2] + "\n");
                     System.out.println(lista.toString());
                     break;
                 case GUARDAR_LISTA:
                     System.out.println(desOpcionesMenu[3]);
                     //Pedir al usuario donde se guardara
-                    System.out.println("Donde desea guardar el archivo?");
+                    System.out.println("\nDonde desea guardar el archivo?\n");
                     rutaArchivo = sc.next();
                     //Declaro los objetos necesarios para guardar la lista en un fichero
                     File file = null;
@@ -88,7 +92,7 @@ public class ReproductorUB1 {
                         //Comprobamos si el archivo existe y si se desea sobreescribi
                         file = new File(rutaArchivo);
                         if (file.exists()) {
-                            System.out.println("El archivo ya existe desea sobreescribirlo Y/N");
+                            System.out.println("\nEl archivo ya existe desea sobreescribirlo Y/N\n");
                             String op=sc.next();
                             System.out.println(op);
                             if (op.equals("Y") || op.equals("y") ) {
@@ -100,13 +104,13 @@ public class ReproductorUB1 {
                                 //Cierro los objetos y doy un mensaje de confirmacion al usuario
                                 fos.close();
                                 ous.close();
-                                System.out.println("Se ha sobreescrito el archivo " + rutaArchivo);
+                                System.out.println("\nSe ha sobreescrito el archivo " + rutaArchivo+"\n");
 
                             } else if (op.equals("N") || op.equals("n") ) {
-                                System.out.println("Entendido no se sobreescribira");
+                                System.out.println("\nEntendido no se sobreescribira\n");
 
                             } else{
-                                System.out.println("Opcion no valida");
+                                System.out.println("\nOpcion no valida\n");
                                 System.out.println(op);}
 
                         } else {
@@ -118,8 +122,8 @@ public class ReproductorUB1 {
                             //Cierro los objetos y doy un mensaje de confirmacion al usuario
                             fos.close();
                             ous.close();
-                            System.out.println("Creando el archivo");
-                            System.out.println("La lista se a guardado correctamente en " + rutaArchivo);
+                            System.out.println("\nCreando el archivo\n");
+                            System.out.println("La lista se a guardado correctamente en " + rutaArchivo + "\n");
 
                         }
 
@@ -128,9 +132,9 @@ public class ReproductorUB1 {
                     }
                     break;
                 case RECUPERAR_LISTA:
-                    System.out.println(desOpcionesMenu[4]);
+                    System.out.println("\n" + desOpcionesMenu[4]);
                     //Pedir al usuario el archivo desde el cual vamos a recuperar
-                    System.out.println("Introduzca al ruta del archivo del cual quiere recuperar la lista");
+                    System.out.println("\nIntroduzca al ruta del archivo del cual quiere recuperar la lista\n");
                     rutaArchivo = sc.next();
                     try {
                         //Comprobamos que el archivo exista
@@ -147,7 +151,7 @@ public class ReproductorUB1 {
                             //Hacemos un cast del objeto cargado y le acoplamos un alias (lista)
                             lista=(LlistaFitxers)one;
                         }else
-                            System.out.println("El archivo no existe en tu computadora");
+                            System.out.println("\nEl archivo no existe en tu computadora\n");
                     } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -156,18 +160,5 @@ public class ReproductorUB1 {
         } while (opcion != OpcionesMenu.SALIR);
 
     }
-//Este metodo tenia la finalidad de reducir las lineas
-    /*private void guardarLista(File file, String rutaArchivo, FileOutputStream fos, ObjectOutputStream ous) {
-        file = new File(rutaArchivo);
-        fos = new FileOutputStream(file);
-        ous = new ObjectOutputStream(fos);
-        ous.writeObject(lista);
-        //Cierro los objetos y doy un mensaje de confirmacion al usuario
-        fos.close();
-        ous.close();
-        System.out.println("La lista se a guardado correctamente en " + rutaArchivo);
-        System.out.println("Creando el archivo");
-    }*/
-
 
 }

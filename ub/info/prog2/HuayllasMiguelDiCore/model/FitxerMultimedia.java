@@ -1,10 +1,8 @@
 package ub.info.prog2.HuayllasMiguelDiCore.model;
 
 import ub.info.prog2.utils.InFile;
-
 import java.io.File;
 import java.util.Date;
-import java.util.Calendar;
 
 public class FitxerMultimedia extends File implements InFile {
     //Esta subclase de File sera el que usemos para gestionar los ficheros del reprodutor
@@ -34,15 +32,12 @@ public class FitxerMultimedia extends File implements InFile {
             other = (FitxerMultimedia) obj;
         //finalmente hacemos la comparacion
         return this.getAutor().equals(other.getAutor()) && super.equals(other);
-
-
     }
 
     @Override
     public Date getUltimaModificacio() {
-        Calendar cal = Calendar.getInstance();
-        Date fecha = new Date(cal.getTimeInMillis());
-        return fecha;
+        Date lastMod = new Date(this.lastModified());
+        return lastMod;
     }
 
     @Override
@@ -64,9 +59,9 @@ public class FitxerMultimedia extends File implements InFile {
     @Override
     public void setAutor(String s) {
         this.author = s;
-
     }
     
     public String toString(){
-    return this.getCamiAbsolut();}
+        return this.getCamiAbsolut();
+    }
 }
